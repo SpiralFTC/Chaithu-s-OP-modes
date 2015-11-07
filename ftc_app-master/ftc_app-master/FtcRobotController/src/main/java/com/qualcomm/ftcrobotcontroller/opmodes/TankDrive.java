@@ -31,24 +31,13 @@ public class TankDrive extends OpMode {
     @Override
     public void loop() {
         double rightPower = -gamepad1.left_stick_y;
-        double leftPower = -gamepad1.right_stick_x;
+        double leftPower = -gamepad1.right_stick_y;
 
         rightPower = Range.clip(rightPower, -1, 1);
         leftPower = Range.clip(leftPower, -1, 1);
-
-        if (gamepad1.right_stick_x > 0) {
-            urmom.setPower(leftPower);
-            yo.setPower(-leftPower);
-        } else if (gamepad1.right_stick_x < 0){
-            urmom.setPower(-leftPower);
-            yo.setPower(leftPower);
-        } else {
-            urmom.setPower(0);
-            yo.setPower(0);
-        }
-
         urmom.setPower(rightPower);
-        yo.setPower(rightPower);
+        yo.setPower(leftPower);
+
 
     }
 }
