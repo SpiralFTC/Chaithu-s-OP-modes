@@ -35,8 +35,8 @@ public class TankDrive extends OpMode {
 
         rightPower = Range.clip(rightPower, -1, 1);
         leftPower = Range.clip(leftPower, -1, 1);
-        urmom.setPower(rightPower);
-        yo.setPower(leftPower);
+        urmom.setPower(-leftPower);
+        yo.setPower(-rightPower);
 
 
     }
