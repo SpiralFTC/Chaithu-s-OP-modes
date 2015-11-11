@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
@@ -12,6 +13,9 @@ public class TankDrive extends OpMode {
 
     DcMotor urmom;
     DcMotor yo;
+    Servo mama;
+    Servo goma;
+    double servopos;
 
     public TankDrive() {
     }
@@ -21,6 +25,10 @@ public class TankDrive extends OpMode {
         urmom = hardwareMap.dcMotor.get("right");//right forward
         yo = hardwareMap.dcMotor.get("left");
         yo.setDirection(DcMotor.Direction.REVERSE);
+        mama = hardwareMap.servo.get("right1");
+        goma = hardwareMap.servo.get("left1");
+        servopos = .5;
+
     }
 
     @Override
@@ -30,25 +38,25 @@ public class TankDrive extends OpMode {
 
     @Override
     public void loop() {
+        mama.setPosition(servopos);
+        goma.setPosition(servopos);
         double rightPower = -gamepad1.left_stick_y;
-        double leftPower = -gamepad1.right_stick_x;
-
+        double leftPower = -gamepad1.right_stick_y
         rightPower = Range.clip(rightPower, -1, 1);
         leftPower = Range.clip(leftPower, -1, 1);
-
-        if (gamepad1.right_stick_x > 0) {
-            urmom.setPower(leftPower);
-            yo.setPower(-leftPower);
-        } else if (gamepad1.right_stick_x < 0){
-            urmom.setPower(-leftPower);
-            yo.setPower(leftPower);
-        } else {
-            urmom.setPower(0);
-            yo.setPower(0);
-        }
-
-        urmom.setPower(rightPower);
+        urmom.setPower(-leftPower);
         yo.setPower(rightPower);
+        if(gamepad1.a){
+            double servopos = this.servopos-.2;
+            mama.setPosition(servopos);
+            goma.setPosition(servopos);
+
+        }
+        if(gamepad1.y){
+           double servopos = this.servopos+.2;
+            mama.setPosition(servopos);
+            goma.setPosition(servopos);
+        }
 
     }
 }
