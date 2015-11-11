@@ -106,6 +106,7 @@ public class PushBotManual extends PushBotTelemetry
         else if (gamepad2.b)
         {
             m_hand_position (a_hand_position () - 0.05);
+
         }
 
         //

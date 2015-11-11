@@ -11,24 +11,26 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class TankDrive extends OpMode {
 
-    DcMotor urmom;
-    DcMotor yo;
-    Servo mama;
-    Servo goma;
-    double servopos;
+
+    DcMotor right;
+    DcMotor left;
+    Servo RightServo;
+    Servo LeftServo;
+    double ServoPosition;
 
     public TankDrive() {
     }
 
     @Override
     public void init() {
-        urmom = hardwareMap.dcMotor.get("right");//right forward
-        yo = hardwareMap.dcMotor.get("left");
-        yo.setDirection(DcMotor.Direction.REVERSE);
-        mama = hardwareMap.servo.get("right1");
-        goma = hardwareMap.servo.get("left1");
-        servopos = .5;
-
+        right = hardwareMap.dcMotor.get("right");//right forward
+        left = hardwareMap.dcMotor.get("left");
+        left.setDirection(DcMotor.Direction.REVERSE);
+        RightServo = hardwareMap.servo.get("rightS");
+        LeftServo = hardwareMap.servo.get("leftS");
+        ServoPosition = .5;
+        RightServo.setPosition(ServoPosition);
+        LeftServo.setPosition(ServoPosition);
     }
 
     @Override
@@ -38,24 +40,24 @@ public class TankDrive extends OpMode {
 
     @Override
     public void loop() {
-        mama.setPosition(servopos);
-        goma.setPosition(servopos);
+        RightServo.setPosition(ServoPosition);
+        LeftServo.setPosition(ServoPosition);
         double rightPower = -gamepad1.left_stick_y;
-        double leftPower = -gamepad1.right_stick_y
+        double leftPower = -gamepad1.right_stick_y;
         rightPower = Range.clip(rightPower, -1, 1);
         leftPower = Range.clip(leftPower, -1, 1);
-        urmom.setPower(-leftPower);
-        yo.setPower(rightPower);
-        if(gamepad1.a){
-            double servopos = this.servopos-.2;
-            mama.setPosition(servopos);
-            goma.setPosition(servopos);
+        right.setPower(-leftPower);
+        left.setPower(rightPower);
+        if (gamepad1.a) {
+            double ServoPosition = this.ServoPosition - .1;
+            RightServo.setPosition(ServoPosition);
+            LeftServo.setPosition(ServoPosition);
 
         }
-        if(gamepad1.y){
-           double servopos = this.servopos+.2;
-            mama.setPosition(servopos);
-            goma.setPosition(servopos);
+        if (gamepad1.y) {
+            double ServoPosition = this.ServoPosition + .1;
+            RightServo.setPosition(ServoPosition);
+            LeftServo.setPosition(ServoPosition);
         }
 
     }

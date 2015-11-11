@@ -94,7 +94,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("PushBotSquare", PushBotSquare.java);
 
     manager.register("Tankie", TankDrive.class);
-    manager.register("EOPD Test", EOPD_TEST.class);
+    manager.register("Light Sensor Test", LightTest.class);
+    manager.register("Mountain Climb Auto", MountainClimb_AUTO.class);
 
   }
 }
