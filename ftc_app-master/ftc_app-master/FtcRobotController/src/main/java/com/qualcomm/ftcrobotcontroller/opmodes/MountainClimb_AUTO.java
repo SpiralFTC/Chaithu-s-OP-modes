@@ -13,20 +13,25 @@ public class MountainClimb_AUTO extends LinearOpMode {
 
     DcMotor right;
     DcMotor left;
-    //DcMotor rightBack;
-    // DcMotor leftBack;
     LightSensor lightSensor;
-    double power = 0.5;
-    Servo servo;
+   /*
+    Servo RightServo;
+    Servo LeftServo;
+    double ServoPosition;
+    */
 
     @Override
     public void runOpMode() throws InterruptedException {
         right = hardwareMap.dcMotor.get("right");
-
-        //rightBack = hardwareMap.dcMotor.get("rightB");
-
         left = hardwareMap.dcMotor.get("left");
         left.setDirection(DcMotor.Direction.REVERSE);
+        /**
+        RightServo = hardwareMap.servo.get("rightS");
+        LeftServo = hardwareMap.servo.get("leftS");
+        ServoPosition = .5;
+        RightServo.setPosition(ServoPosition);
+        LeftServo.setPosition(ServoPosition);
+        */
 
 
         lightSensor = hardwareMap.lightSensor.get("LightSensor");
@@ -35,10 +40,10 @@ public class MountainClimb_AUTO extends LinearOpMode {
 
         while (opModeIsActive()) {
             DriveForward(0.5);
-            sleep(2000);
+            sleep(3000);
 
             TurnRight(1);
-            sleep(1000);
+            sleep(2000);
 
             DriveForward(0.5);
             sleep(2000);

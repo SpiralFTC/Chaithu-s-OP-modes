@@ -6,9 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
-/**
- * Created by heel7_000 on 9/2/2015.
- */
+
 public class TankDrive extends OpMode {
 
 
