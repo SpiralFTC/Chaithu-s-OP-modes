@@ -2,7 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
@@ -13,25 +13,17 @@ public class MountainClimb_AUTO extends LinearOpMode {
 
     DcMotor right;
     DcMotor left;
+
     LightSensor lightSensor;
-   /*
-    Servo RightServo;
-    Servo LeftServo;
-    double ServoPosition;
-    */
+
 
     @Override
     public void runOpMode() throws InterruptedException {
         right = hardwareMap.dcMotor.get("right");
+
+
         left = hardwareMap.dcMotor.get("left");
         left.setDirection(DcMotor.Direction.REVERSE);
-        /**
-        RightServo = hardwareMap.servo.get("rightS");
-        LeftServo = hardwareMap.servo.get("leftS");
-        ServoPosition = .5;
-        RightServo.setPosition(ServoPosition);
-        LeftServo.setPosition(ServoPosition);
-        */
 
 
         lightSensor = hardwareMap.lightSensor.get("LightSensor");
@@ -39,49 +31,59 @@ public class MountainClimb_AUTO extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            lightSensor.enableLed(true);
+            telemetry.addData("Light Value: ", lightSensor.getLightDetected());
+            DriveForward(0.25);
+            sleep(700);
+
+            TurnRight(0.2);
+            sleep(700);
+
+            DriveForward(.5);
+            sleep(1000);
+
             DriveForward(0.5);
-            sleep(3000);
+            sleep(1000);
 
-            TurnRight(1);
-            sleep(2000);
-
-            DriveForward(0.5);
-            sleep(2000);
-
-            if (lightSensor.getLightDetected() > 0.9) {
-                DriveBackward(0.5);
+            if (lightSensor.getLightDetected() < 0.35) {
+                DriveForward(0.5);
                 sleep(500);
 
-                TurnRight(1);
-                sleep(300);
+                TurnRight(0.1);
+                sleep(50);
 
                 DriveForward(1);
-                sleep(5000);
 
+
+            } else{
+                DriveForward(1);
             }
 
+
         }
+
+
     }
 
 
     public void DriveForward(double power) {
-        right.setPower(power);
-        left.setPower(power);
+        right.setPower(-power);
+        left.setPower(-power);
     }
 
     public void DriveBackward(double power) {
-        right.setPower(-power);
-        left.setPower(-power);
-    }
-
-    public void TurnRight(double power) {
-        right.setPower(-power);
+        right.setPower(power);
         left.setPower(power);
     }
 
-    public void TurnLeft(double power) {
+    public void TurnRight(double power) {
         right.setPower(power);
         left.setPower(-power);
+    }
+
+    public void TurnLeft(double power) {
+        right.setPower(-power);
+        left.setPower(power);
     }
 
 }
