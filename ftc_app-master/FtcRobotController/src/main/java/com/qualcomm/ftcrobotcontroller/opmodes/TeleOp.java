@@ -22,7 +22,7 @@ public class TeleOp extends OpMode {
         two = hardwareMap.servo.get("left");
         position = 0.5;
         one.setPosition(position);
-        two.setPosition(position);
+       // two.setPosition(position);
     }
 
     @Override
@@ -36,13 +36,13 @@ public class TeleOp extends OpMode {
         if (gamepad1.y){
             double position = this.position + .2;
             one.setPosition(position);
-            two.setPosition(position);
+            //two.setPosition(position);
 
         }
         if (gamepad1.a){
             double position = this.position - .2;
             one.setPosition(position);
-            two.setPosition(position);
+            //two.setPosition(position);
 
         }
 
