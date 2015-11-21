@@ -79,7 +79,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
     //manager.register("LinearIrExample", LinearIrExample.class);
 
-
     //manager.register ("PushBotManual1", PushBotManual1.class);
     //manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
     //manager.register ("PushBotIrEvent", PushBotIrEvent.class);
@@ -95,7 +94,8 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("Tankie", TankDrive.class);
     manager.register("Light Sensor Test", LightTest.class);
-    manager.register("Mountain Climb Auto", MountainClimb_AUTO.class);
+    manager.register("Mountain Auto Red", MountainClimb_AUTO_Red.class);
+    manager.register("Mountain Auto Blue",MountainClimb_AUTO_Red.class);
 
   }
 }

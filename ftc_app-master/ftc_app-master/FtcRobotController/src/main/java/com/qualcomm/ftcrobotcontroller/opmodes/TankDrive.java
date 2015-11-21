@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
-
 public class TankDrive extends OpMode {
 
 
@@ -15,6 +14,9 @@ public class TankDrive extends OpMode {
     Servo RightServo;
     Servo LeftServo;
     double ServoPosition;
+    double armPosition;
+    double servoDelta = 0.1;
+    double armDelta = 0.03;
 
     public TankDrive() {
     }
@@ -26,7 +28,6 @@ public class TankDrive extends OpMode {
         left.setDirection(DcMotor.Direction.REVERSE);
         RightServo = hardwareMap.servo.get("rightS");
         LeftServo = hardwareMap.servo.get("leftS");
-        ServoPosition = .5;
         RightServo.setPosition(ServoPosition);
         LeftServo.setPosition(ServoPosition);
     }
@@ -44,20 +45,34 @@ public class TankDrive extends OpMode {
         double leftPower = -gamepad1.right_stick_y;
         rightPower = Range.clip(rightPower, -1, 1);
         leftPower = Range.clip(leftPower, -1, 1);
-        right.setPower(-leftPower);
+        right.setPower(leftPower);
         left.setPower(rightPower);
-        if (gamepad1.a) {
-            double ServoPosition = this.ServoPosition - .1;
-            RightServo.setPosition(ServoPosition);
-            LeftServo.setPosition(ServoPosition);
+        if (gamepad2.a) {
+            ServoPosition += servoDelta;
 
         }
-        if (gamepad1.y) {
-            double ServoPosition = this.ServoPosition + .1;
-            RightServo.setPosition(ServoPosition);
-            LeftServo.setPosition(ServoPosition);
+        if (gamepad2.y) {
+            ServoPosition -= servoDelta;
         }
+
+        if (gamepad2.x) {
+
+            armPosition += armDelta;
+        }
+
+        if (gamepad2.b) {
+            armPosition -= armDelta;
+        }
+
+
+        armPosition = Range.clip(armPosition, 0.01, 0.69);
+        ServoPosition = Range.clip(ServoPosition, 0.01, 0.99);
+
+        RightServo.setPosition(ServoPosition);
+        LeftServo.setPosition(armPosition);
 
     }
+
+
 }
 
