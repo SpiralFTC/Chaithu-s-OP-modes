@@ -1,40 +1,14 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
-public class TankDrive extends OpMode {
+public class TankDrive extends OpMode_Methods {
 
 
-    DcMotor right;
-    DcMotor left;
-    Servo RightServo;
-    Servo LeftServo;
-    double ServoPosition;
-    double armPosition;
-    double servoDelta = 0.1;
-    double armDelta = 0.03;
+
 
     public TankDrive() {
-    }
-
-    @Override
-    public void init() {
-        right = hardwareMap.dcMotor.get("right");//right forward
-        left = hardwareMap.dcMotor.get("left");
-        left.setDirection(DcMotor.Direction.REVERSE);
-        RightServo = hardwareMap.servo.get("rightS");
-        LeftServo = hardwareMap.servo.get("leftS");
-        RightServo.setPosition(ServoPosition);
-        LeftServo.setPosition(ServoPosition);
-    }
-
-    @Override
-    public void start() {
-        super.start();
     }
 
     @Override

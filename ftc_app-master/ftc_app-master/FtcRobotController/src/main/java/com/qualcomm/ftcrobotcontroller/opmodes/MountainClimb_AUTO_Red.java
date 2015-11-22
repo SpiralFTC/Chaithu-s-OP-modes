@@ -1,37 +1,23 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.hardware.LightSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
 /**
  * Created by SrinivasaRao on 11/1/2015.
  */
-public class MountainClimb_AUTO_Red extends Linear_Auto_Methods{
-
-    DcMotor right;
-    DcMotor left;
-
-    LightSensor lightSensor;
-
+public class MountainClimb_AUTO_Red extends Linear_Methods {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        right = hardwareMap.dcMotor.get("right");
 
-
-        left = hardwareMap.dcMotor.get("left");
-        left.setDirection(DcMotor.Direction.REVERSE);
-
-
-        lightSensor = hardwareMap.lightSensor.get("LightSensor");
         waitForStart();
 
         while (opModeIsActive()) {
             lightSensor.enableLed(true);
             telemetry.addData("Light Value: ", lightSensor.getLightDetected());
+
+            Wait_10Sec(0);
+            sleep(9999);
 
 
             if (lightSensor.getLightDetected() > 0.2) {
@@ -75,5 +61,5 @@ public class MountainClimb_AUTO_Red extends Linear_Auto_Methods{
 
 
     }
-    
+
 }
