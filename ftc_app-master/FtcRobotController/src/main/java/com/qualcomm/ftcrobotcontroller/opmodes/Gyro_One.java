@@ -25,4 +25,3 @@ public class Gyro_One extends OpMode {
         super.stop();
     }
 }
-y

@@ -65,7 +65,7 @@ public class TankDrive extends OpMode {
         }
 
 
-        armPosition = Range.clip(armPosition, 0.01, 0.69);
+        armPosition = Range.clip(armPosition, 0.01, 0.79);
         ServoPosition = Range.clip(ServoPosition, 0.01, 0.99);
 
         RightServo.setPosition(ServoPosition);
