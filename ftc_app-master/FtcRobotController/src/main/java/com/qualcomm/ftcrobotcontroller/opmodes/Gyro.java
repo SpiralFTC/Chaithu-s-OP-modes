@@ -41,6 +41,8 @@ public class Gyro extends Gyro_Programs {
         int t = 0;
         while (t == 1){
             if (a.getHeading() == b){
+                A.setPower(0);
+                B.setPower(0);
                 t=1;
             }
             else if (b<=180){
@@ -53,4 +55,5 @@ public class Gyro extends Gyro_Programs {
             }
         }
     }
+    
 }
