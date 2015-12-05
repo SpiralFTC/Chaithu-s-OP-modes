@@ -15,12 +15,12 @@ public class Gyro extends Gyro_Programs {
         //GyroSensor aa;
         //aa.equals(a);
         //this.b = b;
-        if (a.getHeading()<b){
+        if (a.getHeading()<b && a.getHeading()<180){
            int temp = a.getHeading();
             A.setPower(c+(2*(b-temp)));
             B.setPower(c-(2*(b-temp)));
         }
-        if(a.getHeading()>b){
+        if(a.getHeading()>b && a.getHeading()>1){
             int temp = a.getHeading();
             A.setPower(c-(2*(temp-b)));
             B.setPower(c+(2*(temp-b)));
@@ -44,6 +44,8 @@ public class Gyro extends Gyro_Programs {
                 A.setPower(0);
                 B.setPower(0);
                 t=1;
+                A.setPower(0);
+                B.setPower(0);
             }
             else if (b<=180){
                 A.setPower(.5);
