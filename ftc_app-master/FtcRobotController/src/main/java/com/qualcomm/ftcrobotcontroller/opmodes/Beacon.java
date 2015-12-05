@@ -26,17 +26,17 @@ public class Beacon extends LinearOpMode {
 
         while(LightValue < .6) {
             LightValue = LS.getLightDetected();
-            motorRight.setPower(1);
-            motorLeft.setPower(1);
+            motorRight.setPower(.5);
+            motorLeft.setPower(.5);
         }
         //90 degrees left turn
-        motorRight.setPower(1);
+        motorRight.setPower(.5);
         motorLeft.setPower(0);
         sleep(500);
 
         //Forward 2.25 sqrs.
-        motorRight.setPower(1);
-        motorLeft.setPower(1);
+        motorRight.setPower(.5);
+        motorLeft.setPower(.5);
         sleep(964);
     }
 }
