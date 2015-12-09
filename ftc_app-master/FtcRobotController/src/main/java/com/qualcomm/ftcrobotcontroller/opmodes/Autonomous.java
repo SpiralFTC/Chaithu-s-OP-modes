@@ -33,7 +33,7 @@ public class Autonomous extends Gyro {
     public void loop() {
         //sleepMove(3000, 0, .5);
 
-        gyroTurn(73, 77);
+        gyroTurn(89, 91);
         // sleepMove(3000, 75, .5);
 
         //leftMotor.setPower(0);
