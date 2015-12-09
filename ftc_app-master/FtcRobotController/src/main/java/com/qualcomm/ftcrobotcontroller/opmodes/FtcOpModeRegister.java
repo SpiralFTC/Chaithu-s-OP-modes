@@ -88,8 +88,8 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("Tankie", TankDrive.class);
    // manager.register("Light Sensor Test", LightTest.class);
-    manager.register("Mountain Auto Red", MountainClimb_AUTO_Red.class);
-    manager.register("Mountain Auto Blue",MountainClimb_AUTO_Red.class);
+    manager.register("Auto ",Autonomous.class);
+    manager.register("All Test",AllTest.class);
 
   }
 }
