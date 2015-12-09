@@ -25,15 +25,15 @@ public class Autonomous extends Gyro {
 
         gyroSensor.calibrate();
         if (gyroSensor.isCalibrating()) {
-            sleep(300);
+            sleep(100);
         }
     }
 
     @Override
     public void loop() {
-        //sleepMove(3000, 0, .5);
+        sleepMove(3000, 0, 1);
 
-        gyroTurn(89, 91);
+        //gyroTurn(89, 91);
         // sleepMove(3000, 75, .5);
 
         //leftMotor.setPower(0);

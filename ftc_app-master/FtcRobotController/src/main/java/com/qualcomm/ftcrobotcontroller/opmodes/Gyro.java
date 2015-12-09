@@ -10,7 +10,7 @@ public class Gyro extends Gyro_Programs {
 
     public void gyroTurn(int b, int c) {
         boolean value = false;
-        if(gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c){
+        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c) {
             value = true;
         }
 
@@ -35,7 +35,7 @@ public class Gyro extends Gyro_Programs {
                     break;
 
 
-                } else if (gyroSensor.getHeading() > b) {
+                } else if (gyroSensor.getHeading() > c) {
                     rightMotor.setPower(0.7);
                     leftMotor.setPower(-0.7);
                     break;
@@ -63,10 +63,52 @@ public class Gyro extends Gyro_Programs {
     }
 
     //sleep
-    public static void sleepMove(long sleepTime, int b, double c) {
-        long wakeupTime = System.currentTimeMillis() + sleepTime;
+    public static void sleepMove(long sleepTime, int x, int y) {
 
-        while (sleepTime > 0) {
+        boolean value = false;
+        if (gyroSensor.getHeading() >= x && gyroSensor.getHeading() <= y) {
+            value = true;
+        }
+
+        if (!value) {
+            lol++;
+        }
+
+        switch (lol) {
+            case 1:
+
+                leftMotor.setPower(0.7);
+                rightMotor.setPower(0.7);
+
+                break;
+
+
+            case 2:
+                lol = 1;
+                if (gyroSensor.getHeading() < x) {
+                    rightMotor.setPower(-0.7);
+                    leftMotor.setPower(0.7);
+                    break;
+
+
+                } else if (gyroSensor.getHeading() > y) {
+                    rightMotor.setPower(0.7);
+                    leftMotor.setPower(-0.7);
+                    break;
+
+
+                }
+
+
+        }
+
+    }
+}
+
+
+
+        /*long wakeupTime = System.currentTimeMillis() + sleepTime;
+
             leftMotor.setPower(c);
             rightMotor.setPower(c);
             if (gyroSensor.getHeading() < b && gyroSensor.getHeading() < 180) {
@@ -177,4 +219,5 @@ public class Gyro extends Gyro_Programs {
     }   //sleep
 
 
-}
+}*/
+

@@ -10,7 +10,7 @@ public class Gyro_Programs extends OpMode {
     public static DcMotor rightMotor;
     public static GyroSensor gyroSensor;
     public static int a = 1;
-
+    public static int lol = 1;
     @Override
     public void init() {
 
