@@ -8,34 +8,44 @@ import com.qualcomm.robotcore.util.Range;
 public class Gyro extends Gyro_Programs {
 
 
-    public void gyroTurn(int b) {
+    public void gyroTurn(int b, int c) {
+        boolean value = false;
+        if(gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c){
+            value = true;
+        }
 
+        if (!value) {
+            a++;
+        }
 
-        if (gyroSensor.getHeading() == b) {
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
+        switch (a) {
+            case 1:
 
-        } else if (gyroSensor.getHeading() <= 180) {
-
-            rightMotor.setPower(1);
-            leftMotor.setPower(0);
-
-            if (gyroSensor.getHeading() == b) {
                 leftMotor.setPower(0);
                 rightMotor.setPower(0);
-            }
 
-        } else {
-            leftMotor.setPower(1);
-            rightMotor.setPower(0);
+                break;
 
-            if (gyroSensor.getHeading() == b) {
-                leftMotor.setPower(0);
-                rightMotor.setPower(0);
-            }
+
+            case 2:
+                a = 1;
+                if (gyroSensor.getHeading() < b) {
+                    rightMotor.setPower(-0.7);
+                    leftMotor.setPower(0.7);
+                    break;
+
+
+                } else if (gyroSensor.getHeading() > b) {
+                    rightMotor.setPower(0.7);
+                    leftMotor.setPower(-0.7);
+                    break;
+
+
+                }
 
 
         }
+
     }
 
 

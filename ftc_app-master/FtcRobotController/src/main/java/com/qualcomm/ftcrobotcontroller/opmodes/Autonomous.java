@@ -18,7 +18,6 @@ public class Autonomous extends Gyro {
         LeftServo = hardwareMap.servo.get("leftS");
 
 
-
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
@@ -34,14 +33,14 @@ public class Autonomous extends Gyro {
     public void loop() {
         //sleepMove(3000, 0, .5);
 
-        gyroTurn(75);
-       // sleepMove(3000, 75, .5);
+        gyroTurn(73, 77);
+        // sleepMove(3000, 75, .5);
 
         //leftMotor.setPower(0);
         //rightMotor.setPower(0);
 
 
-        telemetry.addData( "Gyro: ", gyroSensor.getHeading()  );
+        telemetry.addData("Gyro: ", gyroSensor.getHeading());
     }
 
     @Override
