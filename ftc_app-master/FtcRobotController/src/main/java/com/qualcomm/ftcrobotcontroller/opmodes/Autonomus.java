@@ -22,21 +22,21 @@ public class Autonomus extends Gyro {
            sleep(400);
             }
 
-        A = hardwareMap.dcMotor.get("left");
-        B = hardwareMap.dcMotor.get("right");
+        leftMotor = hardwareMap.dcMotor.get("left");
+        rightMotor = hardwareMap.dcMotor.get("right");
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        A.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
     public void loop() {
-        sleepMove(3000,gyroSensor,0,.5,A,B);
+        sleepMove(3000);
 
-        gyroTurn(gyroSensor,75);
-        sleepMove(3000,gyroSensor,75,.5,A,B);
+        gyroTurn(90);
+        sleepMove(3000);
 
-        A.setPower(0);
-        B.setPower(0);
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
 
     }
 

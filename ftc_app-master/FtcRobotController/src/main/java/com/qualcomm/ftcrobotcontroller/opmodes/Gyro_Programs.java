@@ -3,14 +3,14 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.util.Range;
 
-/**
- * Created by heel7_000 on 12/3/2015.
- */
+
 public class Gyro_Programs extends OpMode {
-    DcMotor A;
-    DcMotor B;
+    public static DcMotor leftMotor;
+    public static DcMotor rightMotor;
+    public static GyroSensor gyroSensor;
+    public static int a = 1;
+    public static int lol = 1;
     @Override
     public void init() {
 
@@ -18,7 +18,7 @@ public class Gyro_Programs extends OpMode {
 
     @Override
     public void start() {
-       // super.start();
+        // super.start();
     }
 
     @Override
@@ -31,46 +31,31 @@ public class Gyro_Programs extends OpMode {
         //super.stop();
     }
 
-    public void gyroStraight(GyroSensor a,int b,double c ){
+    public void gyroStraight(int b, double c) {
         //GyroSensor aa;
         //aa.equals(a);
         //this.b = b;
+        if (gyroSensor.getHeading() < b && gyroSensor.getHeading() < 180) {
+            int temp = gyroSensor.getHeading();
+            leftMotor.setPower(c + (2 * (b - temp)));
+            rightMotor.setPower(c - (2 * (b - temp)));
+        }
+        if (gyroSensor.getHeading() > b && gyroSensor.getHeading() > 1) {
+            int temp = gyroSensor.getHeading();
+            leftMotor.setPower(c - (2 * (temp - b)));
+            rightMotor.setPower(c + (2 * (temp - b)));
+        }
+        if ((gyroSensor.getHeading()) < ((b + 360))) {
+            int temp = gyroSensor.getHeading();
+            leftMotor.setPower(c + (2 * (b - temp)));
+            rightMotor.setPower(c - (2 * (b - temp)));
 
-        if (a.getHeading()<b && a.getHeading()<180){
-            int temp = a.getHeading();
-            double C =(c+(2*(b-temp)));
-            double D = (c-(2*(b-temp)));
-            Range.clip(C, -1, 1);
-            Range.clip(D,-1,1);
-            A.setPower(C);
-            B.setPower(D);
         }
-        if(a.getHeading()>b && a.getHeading()>1){
-            int temp = a.getHeading();
-            double C = (c-(2*(temp-b)));
-            double D = (c+(2*(temp-b)));
-            Range.clip(C,-1,1);
-            Range.clip(D,-1,1);
-            A.setPower(C);
-            B.setPower(D);
-        }
-        if ((a.getHeading())<((b+360))){
-            int temp = a.getHeading();
-            double C =(c+(2*(b-temp)));
-            double D = (c-(2*(b-temp)));
-            Range.clip(C,-1,1);
-            Range.clip(D,-1,1);
-            A.setPower(C);
-            B.setPower(D);
-        }
-        if(a.getHeading()+360>b){
-            int temp = a.getHeading();
-            double C = (c-(2*(temp-b)));
-            double D = (c+(2*(temp-b)));
-            Range.clip(C,-1,1);
-            Range.clip(D,-1,1);
-            A.setPower(C);
-            B.setPower(D);
+        if (gyroSensor.getHeading() + 360 > b) {
+            int temp = gyroSensor.getHeading();
+            leftMotor.setPower(c - (2 * (temp - b)));
+            rightMotor.setPower(c + (2 * (temp - b)));
         }
     }
+
 }
