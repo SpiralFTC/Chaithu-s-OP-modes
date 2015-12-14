@@ -90,40 +90,17 @@ public class Gyro extends Gyro_Programs {
     public static void sleepMove(long sleepTime, int x, int y) {
 
         boolean value = false;
-        if (gyroSensor.getHeading() >= x && gyroSensor.getHeading() <= y) {
-            value = true;
-        }
+        while(!value){
+            if(gyroSensor.getHeading()>x && gyroSensor.getHeading()<y){
+                leftMotor.setPower(1);
+                rightMotor.setPower(1);
+             value = true;
+            }
+            else{
+                leftMotor.setPower(.5);
+                rightMotor.setPower(-.5);
 
-        if (!value) {
-            lol++;
-        }
-
-        switch (lol) {
-            case 1:
-
-                leftMotor.setPower(0.7);
-                rightMotor.setPower(0.7);
-
-                break;
-
-
-            case 2:
-                lol = 1;
-                if (gyroSensor.getHeading() < x) {
-                    rightMotor.setPower(-0.7);
-                    leftMotor.setPower(0.7);
-                    break;
-
-
-                } else if (gyroSensor.getHeading() > y) {
-                    rightMotor.setPower(0.7);
-                    leftMotor.setPower(-0.7);
-                    break;
-
-
-                }
-
-
+            }
         }
 
     }
