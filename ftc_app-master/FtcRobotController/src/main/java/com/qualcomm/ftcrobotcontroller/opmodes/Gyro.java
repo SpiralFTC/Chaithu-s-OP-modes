@@ -65,36 +65,38 @@ public class Gyro extends Gyro_Programs {
     }
 
     //sleep
-    public static boolean move_inches(int move_parameter){
+    public static boolean move_inches(double move_parameter){
         //parameter should be in inches
-        int heading = gyroSensor.getHeading();
-        double rate = 6;
         double distance = move_parameter;
+        int heading = 0;
+        double rate = 6;
+
         double time = ((distance / rate) * 1000);
         boolean timercheck = false;
         int timer = 0;
         while(!timercheck){
             if(timer == time){
-                timercheck = false;
+                timercheck = true;
             }
-            if(gyroSensor.getHeading() != heading){
+            if(gyroSensor.getHeading() > (heading + 2) && gyroSensor.getHeading() < 358){
                 return false;
             }
             leftMotor.setPower(0.6);
             leftMotor.setPower(0.6);
             timer++;
         }
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
         return true;
 
     }
     public static void sleepMove(long sleepTime, int x, int y) {
 
-        boolean value = false;
-        while(!value){
-            if(gyroSensor.getHeading()>x && gyroSensor.getHeading()<y){
+
+            if((gyroSensor.getHeading() > x) && (gyroSensor.getHeading() < y)){
                 leftMotor.setPower(1);
                 rightMotor.setPower(1);
-             value = true;
+
             }
             else{
                 leftMotor.setPower(.5);
@@ -104,7 +106,7 @@ public class Gyro extends Gyro_Programs {
         }
 
     }
-}
+
 
 
 
