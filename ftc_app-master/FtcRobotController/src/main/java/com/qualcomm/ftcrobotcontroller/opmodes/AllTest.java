@@ -9,55 +9,32 @@ public class AllTest extends OpModeMethods {
     public void loop() {
 
 right.setPower(1);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       sleep(500);
         left.setPower(1);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(500);
+
 
         right.setPower(1);
         left.setPower(1);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       sleep(500);
+
 
         RightServo.setPosition(0.99);
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+         sleep(500);
+
 
         RightServo.setPosition(0.01);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       sleep(500);
+
 
         LeftServo.setPosition(0.99);
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       sleep(500);
 
         LeftServo.setPosition(0.01);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(500);
 
 
 

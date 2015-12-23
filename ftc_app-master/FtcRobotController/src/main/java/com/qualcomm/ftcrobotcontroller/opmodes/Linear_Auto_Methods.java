@@ -16,13 +16,13 @@ public class Linear_Auto_Methods extends LinearOpMode {
     }
 
     public void DriveForward(double power) {
-        right.setPower(-power);
-        left.setPower(-power);
+        right.setPower(power);
+        left.setPower(power);
     }
 
     public void DriveBackward(double power) {
-        right.setPower(power);
-        left.setPower(power);
+        right.setPower(-power);
+        left.setPower(-power);
     }
 
     public void TurnRight(double power) {

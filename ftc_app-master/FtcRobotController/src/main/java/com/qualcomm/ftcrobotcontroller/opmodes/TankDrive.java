@@ -22,7 +22,11 @@ public class TankDrive extends OpModeMethods {
         leftPower = Range.clip(leftPower, -1, 1);
         right.setPower(leftPower);
         left.setPower(rightPower);
-
+/*
+        double sweeperPower = -gamepad2.left_stick_y;
+        sweeperPower = Range.clip(sweeperPower, -1, 1);
+        sweeperMotor.setPower(sweeperPower);
+*/
 
         if (gamepad2.y) {
             ServoPosition += servoDelta;

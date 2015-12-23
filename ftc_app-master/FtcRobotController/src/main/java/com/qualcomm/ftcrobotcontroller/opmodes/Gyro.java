@@ -1,16 +1,24 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.util.Range;
+
 
 
 public class Gyro extends Gyro_Programs {
 
 
-    public void gyroTurn(int b, int c) {
+    public static void gyroTurn(int d) {
         boolean value = false;
-        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c) {
+
+        int b = d - 2;
+        int c = d + 2;
+
+        if (d == 0) {
+
+            b = 0;
+            c = 2;
+        }
+
+        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c ) {
             value = true;
         }
 
@@ -63,47 +71,73 @@ public class Gyro extends Gyro_Programs {
     }
 
     //sleep
-    public static void sleepMove(long sleepTime, int x, int y) {
+    public static void sleepMove() {
 
-        boolean value = false;
-        if (gyroSensor.getHeading() >= x && gyroSensor.getHeading() <= y) {
-            value = true;
+        int x = 0;
+        int y = 2;
+        boolean head = false;
+
+        if (gyroSensor.getHeading() > 4 && gyroSensor.getHeading() < 356){
+            head = true;
         }
 
-        if (!value) {
-            lol++;
+        if (!head) {
+
+            leftMotor.setPower(0.6);
+            rightMotor.setPower(0.6);
         }
 
-        switch (lol) {
+
+
+
+
+      /*  switch (caseNumber) {
             case 1:
 
-                leftMotor.setPower(0.7);
-                rightMotor.setPower(0.7);
+                leftMotor.setPower(0.6);
+                rightMotor.setPower(0.6);
 
-                break;
+
 
 
             case 2:
-                lol = 1;
-                if (gyroSensor.getHeading() < x) {
-                    rightMotor.setPower(-0.7);
-                    leftMotor.setPower(0.7);
+                caseNumber = 1;
+
+
+               if (gyroSensor.getHeading() > 4) {
+                    rightMotor.setPower(-0.65);
+                    leftMotor.setPower(0.65);
                     break;
 
 
-                } else if (gyroSensor.getHeading() > y) {
-                    rightMotor.setPower(0.7);
-                    leftMotor.setPower(-0.7);
+                } else if (gyroSensor.getHeading() < 358) {
+                    rightMotor.setPower(0.65);
+                    leftMotor.setPower(-0.65);
                     break;
 
 
                 }
+*/
 
+                }
+
+
+    public static void moveCentimeters(double centimeters)  {
+        double revolutionmove =  centimeters / oneRevolutiontreadLength;
+        boolean checkmove = false;
+        if(!checkmove){
+
+            rightMotor.setPower(0.6);
+            leftMotor.setPower(0.6);
+        }
+
+
+
+    }
 
         }
 
-    }
-}
+
 
 
 
