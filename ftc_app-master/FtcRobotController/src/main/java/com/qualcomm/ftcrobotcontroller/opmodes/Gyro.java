@@ -106,24 +106,28 @@ public class Gyro extends Gyro_Programs {
         }
     }
 
-
-    public static void moveCentimetersTyre(double centimeters, double diametre) {
+    /**
+     * Move the robot for the given distance
+     * @param centimeters
+     * @param diametre
+     */
+    public static void moveCentimetersTyre(double centimeters, double diametre,double power) {
         double circumference = diametre * Math.PI;
 
-        double revolutionmove = centimeters / circumference;
-        rightMotor.setTargetPosition((int)(revolutionmove*980) );
-        leftMotor.setTargetPosition((int)(revolutionmove*980) );
+        double revolutions = centimeters / circumference;
+        rightMotor.setTargetPosition((int)(revolutions*1043) );
+        leftMotor.setTargetPosition((int)(revolutions*1043) );
         rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
         leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
         //boolean checkmove = false;
 
 
-        rightMotor.setPower(0.6);
-        leftMotor.setPower(0.6);
+        rightMotor.setPower(power);
+        leftMotor.setPower(power);
     }
 
-    public static void moveCentimeters(double centimeters) {
+    public static void moveCentimeters(double centimeters,double power) {
         double revolutionmove = centimeters / oneRevolutiontreadLength;
         rightMotor.setTargetPosition((int)(revolutionmove*1960) );
         leftMotor.setTargetPosition((int)(revolutionmove*1960) );
@@ -133,8 +137,8 @@ public class Gyro extends Gyro_Programs {
         //boolean checkmove = false;
 
 
-        rightMotor.setPower(0.6);
-        leftMotor.setPower(0.6);
+        rightMotor.setPower(power);
+        leftMotor.setPower(power);
 
     }
 }
