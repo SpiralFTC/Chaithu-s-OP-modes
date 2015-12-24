@@ -10,7 +10,10 @@ public class Gyro_Programs extends OpMode {
     public static DcMotor rightMotor;
     public static GyroSensor gyroSensor;
     public static int a = 1;
-    public static int lol = 1;
+    public static int caseNumber = 1;
+    // public static final double treadLength = 90.01125;
+    public static final double oneRevolutiontreadLength = 14.8370192308;
+
 
     DcMotor right;
     DcMotor left;

@@ -10,8 +10,8 @@ public class Gyro extends Gyro_Programs {
 
     public void gyroTurn(int d) {
         boolean value = false;
-        int b = d-2;
-        int c = d+2;
+        int b = d - 2;
+        int c = d + 2;
         if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c) {
             value = true;
         }
@@ -65,7 +65,7 @@ public class Gyro extends Gyro_Programs {
     }
 
     //sleep
-    public static boolean move_inches(double move_parameter){
+    public static boolean move_inches(double move_parameter) {
         //parameter should be in inches
         double distance = move_parameter;
         int heading = 0;
@@ -74,11 +74,11 @@ public class Gyro extends Gyro_Programs {
         double time = ((distance / rate) * 1000);
         boolean timercheck = false;
         int timer = 0;
-        while(!timercheck){
-            if(timer == time){
+        while (!timercheck) {
+            if (timer == time) {
                 timercheck = true;
             }
-            if(gyroSensor.getHeading() > (heading + 2) && gyroSensor.getHeading() < 358){
+            if (gyroSensor.getHeading() > (heading + 2) && gyroSensor.getHeading() < 358) {
                 return false;
             }
             leftMotor.setPower(0.6);
@@ -90,25 +90,42 @@ public class Gyro extends Gyro_Programs {
         return true;
 
     }
+
     public static void sleepMove(long sleepTime, int x, int y) {
 
 
-            if((gyroSensor.getHeading() > x) && (gyroSensor.getHeading() < y)){
-                leftMotor.setPower(1);
-                rightMotor.setPower(1);
+        if ((gyroSensor.getHeading() > x) && (gyroSensor.getHeading() < y)) {
+            leftMotor.setPower(1);
+            rightMotor.setPower(1);
 
-            }
-            else{
-                leftMotor.setPower(.5);
-                rightMotor.setPower(-.5);
+        } else {
+            leftMotor.setPower(.5);
+            rightMotor.setPower(-.5);
 
-            }
         }
-
     }
 
 
+    public static void moveCentimetersTyre(double centimeters, double diametre) {
+        double circumference = diametre * Math.PI;
 
+        double revolutionmove = centimeters / circumference;
+        boolean checkmove = false;
+        if (!checkmove) {
+
+            rightMotor.setPower(0.6);
+            leftMotor.setPower(0.6);
+        }
+    }
+
+    public static void moveCentimeters(double centimeters)  {
+        double revolutionmove =  centimeters / oneRevolutiontreadLength;
+        boolean checkmove = false;
+        if(!checkmove){
+
+            rightMotor.setPower(0.6);
+            leftMotor.setPower(0.6);
+        }
 
         /*long wakeupTime = System.currentTimeMillis() + sleepTime;
             leftMotor.setPower(c);
@@ -215,3 +232,4 @@ public class Gyro extends Gyro_Programs {
         }
     }   //sleep
 }*/
+}
