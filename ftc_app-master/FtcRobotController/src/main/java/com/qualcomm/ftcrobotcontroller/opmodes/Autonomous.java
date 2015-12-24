@@ -1,6 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -27,12 +28,14 @@ public class Autonomous extends Gyro {
         rightMotor = hardwareMap.dcMotor.get("right");
 
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
     @Override
     public void loop() {
-
-        driveBackwardForTime(1, 10000);
+        moveCentimetersTyre(100,10.16 );
+        //driveBackwardForTime(1, 10000);
     }
 
     @Override

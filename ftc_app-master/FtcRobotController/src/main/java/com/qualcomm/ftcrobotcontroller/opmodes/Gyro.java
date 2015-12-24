@@ -1,6 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.Range;
 
@@ -110,24 +111,35 @@ public class Gyro extends Gyro_Programs {
         double circumference = diametre * Math.PI;
 
         double revolutionmove = centimeters / circumference;
-        boolean checkmove = false;
-        if (!checkmove) {
+        rightMotor.setTargetPosition((int)(revolutionmove*1960) );
+        leftMotor.setTargetPosition((int)(revolutionmove*1960) );
+        rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-            rightMotor.setPower(0.6);
-            leftMotor.setPower(0.6);
-        }
+        //boolean checkmove = false;
+
+
+        rightMotor.setPower(0.6);
+        leftMotor.setPower(0.6);
     }
 
-    public static void moveCentimeters(double centimeters)  {
-        double revolutionmove =  centimeters / oneRevolutiontreadLength;
-        boolean checkmove = false;
-        if(!checkmove){
+    public static void moveCentimeters(double centimeters) {
+        double revolutionmove = centimeters / oneRevolutiontreadLength;
+        rightMotor.setTargetPosition((int)(revolutionmove*1960) );
+        leftMotor.setTargetPosition((int)(revolutionmove*1960) );
+        rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-            rightMotor.setPower(0.6);
-            leftMotor.setPower(0.6);
-        }
+        //boolean checkmove = false;
 
-        /*long wakeupTime = System.currentTimeMillis() + sleepTime;
+
+        rightMotor.setPower(0.6);
+        leftMotor.setPower(0.6);
+
+    }
+}
+
+        /*long wakeupTime = System.current  TimeMillis() + sleepTime;
             leftMotor.setPower(c);
             rightMotor.setPower(c);
             if (gyroSensor.getHeading() < b && gyroSensor.getHeading() < 180) {
@@ -232,4 +244,3 @@ public class Gyro extends Gyro_Programs {
         }
     }   //sleep
 }*/
-}
