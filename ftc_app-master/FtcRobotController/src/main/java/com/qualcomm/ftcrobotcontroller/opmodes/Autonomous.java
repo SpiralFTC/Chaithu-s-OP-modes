@@ -34,8 +34,9 @@ public class Autonomous extends Gyro {
 
     @Override
     public void loop() {
-        moveCentimetersTyre(100,9.525,.5 );
-        //driveBackwardForTime(1, 10000);
+        //Gyro myGyro = new Gyro();
+       Gyro myGyro = new Gyro();
+        myGyro.moveCentimetersTyre(100, 9.75,.3);
     }
 
     @Override
