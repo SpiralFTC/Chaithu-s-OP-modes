@@ -111,8 +111,8 @@ public class Gyro extends Gyro_Programs {
         double circumference = diametre * Math.PI;
 
         double revolutionmove = centimeters / circumference;
-        rightMotor.setTargetPosition((int)(revolutionmove*1960) );
-        leftMotor.setTargetPosition((int)(revolutionmove*1960) );
+        rightMotor.setTargetPosition((int)(revolutionmove*980) );
+        leftMotor.setTargetPosition((int)(revolutionmove*980) );
         rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
         leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
