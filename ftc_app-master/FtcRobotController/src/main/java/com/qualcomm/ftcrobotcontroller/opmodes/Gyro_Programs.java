@@ -10,9 +10,19 @@ public class Gyro_Programs extends OpMode {
     public static DcMotor rightMotor;
     public static GyroSensor gyroSensor;
     public static int a = 1;
-    public static int lol = 1;
+    public static int caseNumber = 1;
+    // public static final double treadLength = 90.01125;
+    public static final double oneRevolutiontreadLength = 14.8370192308;
+
+
+    DcMotor right;
+    DcMotor left;
+
+    private double startTime;
+    private boolean runTimerStarted;
     @Override
     public void init() {
+        runTimerStarted = false;
 
     }
 
@@ -56,6 +66,49 @@ public class Gyro_Programs extends OpMode {
             leftMotor.setPower(c - (2 * (temp - b)));
             rightMotor.setPower(c + (2 * (temp - b)));
         }
+    }
+
+
+    public boolean driveForwardForTime(double power, double targetTime) {
+        right.setPower(power);
+        left.setPower(power);
+        return targetTimeReached(targetTime);
+    }
+
+    public boolean driveBackwardForTime(double power, double targetTime) {
+        right.setPower(-power);
+        left.setPower(-power);
+        return targetTimeReached(targetTime);
+    }
+
+    public boolean turnRightForTime(double power, double targetTime) {
+        right.setPower(power);
+        left.setPower(-power);
+        return targetTimeReached(targetTime);
+    }
+
+    public boolean turnLeftForTime(double power, double targetTime) {
+        right.setPower(-power);
+        left.setPower(power);
+        return targetTimeReached(targetTime);
+    }
+
+    public boolean targetTimeReached(double targetTime) {
+
+        if (!runTimerStarted) {
+            runTimerStarted = true;
+            startTime = getRuntime();
+            return false;
+        } else {
+            boolean result = (getRuntime() - startTime) >= targetTime;
+            if (result) {
+                runTimerStarted = false;
+
+            }
+            return result;
+        }
+
+
     }
 
 }

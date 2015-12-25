@@ -1,6 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.Range;
 
@@ -8,9 +9,21 @@ import com.qualcomm.robotcore.util.Range;
 public class Gyro extends Gyro_Programs {
 
 
-    public void gyroTurn(int b, int c) {
+
+
+    public static void gyroTurn(int d) {
         boolean value = false;
-        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c) {
+
+        int b = d - 2;
+        int c = d + 2;
+
+        if (d == 0) {
+
+            b = 0;
+            c = 2;
+        }
+
+        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c ) {
             value = true;
         }
 
@@ -49,7 +62,8 @@ public class Gyro extends Gyro_Programs {
     }
 
 
-    public static void sleep(long sleepTime) {
+
+   /* public static void sleep(long sleepTime) {
         long wakeupTime = System.currentTimeMillis() + sleepTime;
 
         while (sleepTime > 0) {
@@ -63,161 +77,96 @@ public class Gyro extends Gyro_Programs {
     }
 
     //sleep
-    public static void sleepMove(long sleepTime, int x, int y) {
+    public static boolean move_inches(double move_parameter) {
+        //parameter should be in inches
+        double distance = move_parameter;
+        int heading = 0;
+        double rate = 6;
 
-        boolean value = false;
-        if (gyroSensor.getHeading() >= x && gyroSensor.getHeading() <= y) {
-            value = true;
+        double time = ((distance / rate) * 1000);
+        boolean timercheck = false;
+        int timer = 0;
+        while (!timercheck) {
+            if (timer == time) {
+                timercheck = true;
+            }
+            if (gyroSensor.getHeading() > (heading + 2) && gyroSensor.getHeading() < 358) {
+                return false;
+            }
+            leftMotor.setPower(0.6);
+            leftMotor.setPower(0.6);
+            timer++;
         }
-
-        if (!value) {
-            lol++;
-        }
-
-        switch (lol) {
-            case 1:
-
-                leftMotor.setPower(0.7);
-                rightMotor.setPower(0.7);
-
-                break;
-
-
-            case 2:
-                lol = 1;
-                if (gyroSensor.getHeading() < x) {
-                    rightMotor.setPower(-0.7);
-                    leftMotor.setPower(0.7);
-                    break;
-
-
-                } else if (gyroSensor.getHeading() > y) {
-                    rightMotor.setPower(0.7);
-                    leftMotor.setPower(-0.7);
-                    break;
-
-
-                }
-
-
-        }
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+        return true;
 
     }
-}
+
+    public static void sleepMove(long sleepTime, int x, int y) {
+
+
+        if ((gyroSensor.getHeading() > x) && (gyroSensor.getHeading() < y)) {
+            leftMotor.setPower(1);
+            rightMotor.setPower(1);
+
+        } else {
+            leftMotor.setPower(.5);
+            rightMotor.setPower(-.5);
+
+        }
+    }
+    */
+
+    /**
+     * Move the robot for the given distance
+     *
+     * @param centimeters
+     * @param diametre
+     */
+    public void moveCentimetersTyre(double centimeters, double diametre, double power) {
+        double circumference = diametre * Math.PI;
+
+        double revolutions = centimeters / circumference;
+        rightMotor.setTargetPosition((int) (revolutions * 1072));
+        leftMotor.setTargetPosition((int) (revolutions * 1072));
+        rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+        //boolean checkmove = false;
+
+
+        rightMotor.setPower(power);
+        leftMotor.setPower(power);
+    }
+
+        public void moveCentimeters(double centimeters, double power) {
+            double revolutionmove = centimeters / oneRevolutiontreadLength;
+            rightMotor.setTargetPosition((int) (revolutionmove * 1072));
+            leftMotor.setTargetPosition((int) (revolutionmove * 1072));
+            rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+            leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+            //boolean checkmove = false;
+
+
+            rightMotor.setPower(power);
+            leftMotor.setPower(power);
+        }
 
 
 
-        /*long wakeupTime = System.currentTimeMillis() + sleepTime;
 
-            leftMotor.setPower(c);
-            rightMotor.setPower(c);
-            if (gyroSensor.getHeading() < b && gyroSensor.getHeading() < 180) {
-                int temp = gyroSensor.getHeading();
-                double C = (c + (0.01 * (b - temp)));
-                double D = (c - (0.01 * (b - temp)));
-                //Range.clip(C, -1, 1);
-                //Range.clip(D,-1,1);
-                if (C > 1 || C < -1) {
-                    if (C > 1) {
-                        C = 1;
-                    }
-                    if (C < -1) {
-                        C = -1;
-                    }
-                }
 
-                if (D > 1 || D < -1) {
-                    if (D > 1) {
-                        D = 1;
-                    }
-                    if (D < -1) {
-                        D = -1;
-                    }
-                }
+    public static void sleep(long sleepTime) {
+        long wakeupTime = System.currentTimeMillis() + sleepTime;
 
-                leftMotor.setPower(C);
-                rightMotor.setPower(D);
-            }
-            if (gyroSensor.getHeading() > b && gyroSensor.getHeading() > 1) {
-                int temp = gyroSensor.getHeading();
-                double C = (c - (0.01 * (temp - b)));
-                double D = (c + (0.01 * (temp - b)));
-                if (C > 1 || C < -1) {
-                    if (C > 1) {
-                        C = 1;
-                    }
-                    if (C < -1) {
-                        C = -1;
-                    }
-                }
-
-                if (D > 1 || D < -1) {
-                    if (D > 1) {
-                        D = 1;
-                    }
-                    if (D < -1) {
-                        D = -1;
-                    }
-                }
-                leftMotor.setPower(C);
-                rightMotor.setPower(D);
-            }
-            if ((gyroSensor.getHeading()) < ((b + 360))) {
-                int temp = gyroSensor.getHeading();
-                double C = (c + (0.01 * (b - temp)));
-                double D = (c - (0.01 * (b - temp)));
-                if (C > 1 || C < -1) {
-                    if (C > 1) {
-                        C = 1;
-                    }
-                    if (C < -1) {
-                        C = -1;
-                    }
-                }
-
-                if (D > 1 || D < -1) {
-                    if (D > 1) {
-                        D = 1;
-                    }
-                    if (D < -1) {
-                        D = -1;
-                    }
-                }
-                leftMotor.setPower(C);
-                rightMotor.setPower(D);
-            }
-            if (gyroSensor.getHeading() + 360 > b) {
-                int temp = gyroSensor.getHeading();
-                double C = (c - (0.01 * (temp - b)));
-                double D = (c + (0.01 * (temp - b)));
-                if (C > 1 || C < -1) {
-                    if (C > 1) {
-                        C = 1;
-                    }
-                    if (C < -1) {
-                        C = -1;
-                    }
-                }
-
-                if (D > 1 || D < -1) {
-                    if (D > 1) {
-                        D = 1;
-                    }
-                    if (D < -1) {
-                        D = -1;
-                    }
-                }
-                leftMotor.setPower(C);
-                rightMotor.setPower(D);
-            }
+        while (sleepTime > 0) {
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 sleepTime = wakeupTime - System.currentTimeMillis();
             }
         }
-    }   //sleep
-
-
-}*/
-
+    }
+}
