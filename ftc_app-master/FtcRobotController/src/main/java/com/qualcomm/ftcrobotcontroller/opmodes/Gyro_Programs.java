@@ -10,6 +10,7 @@ public class Gyro_Programs extends OpMode {
     public static DcMotor rightMotor;
     public static GyroSensor gyroSensor;
     public static int a = 1;
+<<<<<<< HEAD
     public static int caseNumber = 1;
     // public static final double treadLength = 90.01125;
     public static final double oneRevolutiontreadLength = 14.8370192308;
@@ -23,6 +24,12 @@ public class Gyro_Programs extends OpMode {
     @Override
     public void init() {
         runTimerStarted = false;
+=======
+    public static int lol = 1;
+    @Override
+    public void init() {
+
+>>>>>>> master
     }
 
     @Override
@@ -67,6 +74,7 @@ public class Gyro_Programs extends OpMode {
         }
     }
 
+<<<<<<< HEAD
     public boolean driveForwardForTime(double power, double targetTime) {
         right.setPower(power);
         left.setPower(power);
@@ -110,3 +118,6 @@ public class Gyro_Programs extends OpMode {
     }
 
 }
+=======
+}
+>>>>>>> master
