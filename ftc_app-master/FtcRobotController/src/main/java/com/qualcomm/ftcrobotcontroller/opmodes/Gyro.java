@@ -11,11 +11,13 @@ public class Gyro extends Gyro_Programs {
 
 
 
-    public static void gyroTurn(int d) {
+    public  void gyroTurn(int d,double power) {
+        leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         boolean value = false;
 
-        int b = d - 2;
-        int c = d + 2;
+        int b = d - 5;
+        int c = d + 5;
 
         if (d == 0) {
 
@@ -43,14 +45,14 @@ public class Gyro extends Gyro_Programs {
             case 2:
                 a = 1;
                 if (gyroSensor.getHeading() < b) {
-                    rightMotor.setPower(-0.7);
-                    leftMotor.setPower(0.7);
+                    rightMotor.setPower(-power);
+                    leftMotor.setPower(power);
                     break;
 
 
                 } else if (gyroSensor.getHeading() > c) {
-                    rightMotor.setPower(0.7);
-                    leftMotor.setPower(-0.7);
+                    rightMotor.setPower(power);
+                    leftMotor.setPower(-power);
                     break;
 
 
@@ -58,6 +60,8 @@ public class Gyro extends Gyro_Programs {
 
 
         }
+        leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
     }
 
@@ -121,17 +125,19 @@ public class Gyro extends Gyro_Programs {
     /**
      * Move the robot for the given distance
      *
-     * @param centimeters
+     * @param distence
      * @param diametre
      */
-    public void moveCentimetersTyre(double centimeters, double diametre, double power) {
+    public void moveCentimetresTyre(double distence, double diametre, double power) {
+        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         double circumference = diametre * Math.PI;
 
-        double revolutions = centimeters / circumference;
+        double revolutions = distence / circumference;
         rightMotor.setTargetPosition((int) (revolutions * 1072));
         leftMotor.setTargetPosition((int) (revolutions * 1072));
-        rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
         //boolean checkmove = false;
 
@@ -140,12 +146,14 @@ public class Gyro extends Gyro_Programs {
         leftMotor.setPower(power);
     }
 
-        public void moveCentimeters(double centimeters, double power) {
-            double revolutionmove = centimeters / oneRevolutiontreadLength;
+        public void moveCentimetres(double distence, double power) {
+            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+            rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+            double revolutionmove = distence / oneRevolutiontreadLength;
             rightMotor.setTargetPosition((int) (revolutionmove * 1072));
             leftMotor.setTargetPosition((int) (revolutionmove * 1072));
-            rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-            leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+            leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
             //boolean checkmove = false;
 
