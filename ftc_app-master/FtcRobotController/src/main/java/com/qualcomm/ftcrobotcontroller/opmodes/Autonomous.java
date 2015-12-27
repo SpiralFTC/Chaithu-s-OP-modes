@@ -5,13 +5,15 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+//import static com.qualcomm.ftcrobotcontroller.opmodes.Gyro.gyroTurn;
+
 /**
  * Created by heel7_000 on 12/4/2015.
  */
 public class Autonomous extends Gyro {
     Servo one;
     Servo two;
-    GyroSensor gyroSensor;
+
 
 
     @Override
@@ -28,16 +30,21 @@ public class Autonomous extends Gyro {
         rightMotor = hardwareMap.dcMotor.get("right");
 
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
     @Override
     public void loop() {
-        //Gyro myGyro = new Gyro();
+       telemetry.addData("Gyro Value", gyroSensor.getHeading());
        Gyro myGyro = new Gyro();
         //myGyro.moveCentimetersTyre(200, 9.75,.3);
-        myGyro.gyroTurn(90);
+
+     //   sleep(500);
+        myGyro.moveCentimetresTyre(100, 9.74,.3);
+        sleep(500);
+        myGyro.gyroTurn(90,0.075);
+        
     }
 
     @Override
