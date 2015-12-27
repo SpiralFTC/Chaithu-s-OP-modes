@@ -25,7 +25,7 @@ public class Autonomous extends Gyro {
 
 
         gyroSensor.calibrate();
-        if (gyroSensor.isCalibrating()) {
+       while (gyroSensor.isCalibrating()) {
 
             sleep(300);
 
@@ -37,25 +37,10 @@ public class Autonomous extends Gyro {
     @Override
     public void loop() {
 
-
-        //gyroStraight(21, 0.5, 0.01);
-        //gyroTurn(0);
-        // sleepMove(3000, 75, .5);
-        driveForwardForTime(1, 5000);
-
-        drive(0, 0);
-        sleep(100);
-
-        gyroTurn(60);
-
-        driveForwardForTime(0.7, 2000);
-
-        drive(0, 0);
-        sleep(100);
+;
 
 
 
-        // RightServo.setPosition(90);
 
 
         telemetry.addData("Gyro: ", gyroSensor.getHeading());
