@@ -122,8 +122,8 @@ public class Gyro extends Gyro_Programs {
                 }
 
 
-    public static void moveCentimeters(double centimeters)  {
-        double revolutionmove =  centimeters / oneRevolutiontreadLength;
+    /*public static void moveCentimeters(double centimeters)  {
+        double revolutionmove =  centimeters / oneRevolutionTreadLength;
         boolean checkmove = false;
         if(!checkmove){
 
@@ -134,7 +134,7 @@ public class Gyro extends Gyro_Programs {
 
 
     }
-
+*/
         }
 
 

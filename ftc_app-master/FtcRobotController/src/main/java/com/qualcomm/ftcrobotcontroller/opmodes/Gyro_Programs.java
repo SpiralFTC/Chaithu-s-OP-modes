@@ -13,7 +13,7 @@ public class Gyro_Programs extends OpMode {
     public static int a = 1;
     public static int caseNumber = 1;
    // public static final double treadLength = 90.01125;
-    public static final double oneRevolutiontreadLength = 14.8370192308;
+    public static final double oneRevolutionTreadLength = 14.8370192308;
 
 
     private double startTime;
@@ -35,7 +35,7 @@ public class Gyro_Programs extends OpMode {
         //super.stop();
     }
 
-    public void gyroStraight(int b, double c, double x) {
+    /*public void gyroStraight(int b, double c, double x) {
         double z;
         double y;
 
@@ -50,8 +50,6 @@ public class Gyro_Programs extends OpMode {
 
             leftMotor.setPower(0.6);
             rightMotor.setPower(0.6);
-        } else {
-
         }
         if (gyroSensor.getHeading() < b && gyroSensor.getHeading() < 180) {
             int temp = gyroSensor.getHeading();
@@ -85,7 +83,7 @@ public class Gyro_Programs extends OpMode {
             drive(0.8, 0.8);
         }
     }
-
+*/
 
     public static void drive(double x, double y) {
         rightMotor.setPower(x);
