@@ -1,55 +1,54 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+//import static com.qualcomm.ftcrobotcontroller.opmodes.Gyro.gyroTurn;
 
+/**
+ * Created by heel7_000 on 12/4/2015.
+ */
 public class Autonomous extends Gyro {
-    Servo RightServo;
-    Servo LeftServo;
+    Servo one;
+    Servo two;
 
 
-    double ServoPosition = 0.7;
 
     @Override
     public void init() {
-       // RightServo = hardwareMap.servo.get("arm");
-       // LeftServo = hardwareMap.servo.get("leftS");
-
+        one = hardwareMap.servo.get("arm");
+        two = hardwareMap.servo.get("leftS");
+        gyroSensor = hardwareMap.gyroSensor.get("gyro");
+        gyroSensor.calibrate();
+        if (gyroSensor.isCalibrating()) {
+            sleep(400);
+        }
 
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
+
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
-
-
-        gyroSensor.calibrate();
-       while (gyroSensor.isCalibrating()) {
-
-            sleep(300);
-
-
-        }
+        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
-
 
     @Override
     public void loop() {
+       telemetry.addData("Gyro Value", gyroSensor.getHeading());
+       Gyro myGyro = new Gyro();
+        //myGyro.moveCentimetersTyre(200, 9.75,.3);
 
-;
-
-
-
-
-
-        telemetry.addData("Gyro: ", gyroSensor.getHeading());
+     //   sleep(500);
+        myGyro.moveCentimetresTyre(100, 9.74,.3);
+        sleep(500);
+        myGyro.gyroTurn(90,0.075);
+        
     }
 
     @Override
     public void stop() {
-        // super.stop();
-        telemetry.addData("Yo mama is fat, Her weight in tons: ", gyroSensor.getHeading());
+        super.stop();
     }
-
 }
