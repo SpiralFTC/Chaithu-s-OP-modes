@@ -10,6 +10,41 @@ public abstract class Gyro extends Gyro_Programs {
 
     double diameter = 9.75 ;
 
+    /**
+     * Indicate whether the drive motors' encoders have reached a value.
+     */
+    public boolean haveEncodersReached( double leftCount, double rightCount) {
+
+        if (hasLeftEncoderReached(leftCount) &&
+                hasRightEncoderReached(rightCount)) {
+           return true;
+        }
+       return false;
+    }
+
+    /**
+     * Indicate whether the left drive motor's encoder has reached a value.
+     */
+    boolean hasLeftEncoderReached (double count) {
+
+            if (Math.abs (leftMotor.getCurrentPosition ()) > count) {
+                return true;
+            }
+        return false;
+    }
+
+
+    /**
+     * Indicate whether the right drive motor's encoder has reached a value.
+     */
+    boolean hasRightEncoderReached (double count) {
+
+        if (Math.abs (rightMotor.getCurrentPosition ()) > count) {
+            return true;
+        }
+        return false;
+    }
+
 
     public  void gyroTurn(int d,double power,int range) {
         leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
@@ -169,8 +204,63 @@ public abstract class Gyro extends Gyro_Programs {
         }
 
 
+    /**
+     * Convert distance in centimeters to an encoder count
+     * @param distance
+     * @return
+     */
+    public double calculateEncoderCountFromDistance(int distance) {
 
+        double circumference = diameter * Math.PI;
 
+        double revolutions = distance / circumference;
+        return revolutions * 1072;
+    }
+
+    public void setDrivePower(double right, double left) {
+        rightMotor.setPower(right);
+        leftMotor.setPower(left);
+    }
+
+    /**
+     * Indicate whether the encoders have been completely reset.
+     */
+    public boolean haveDriverEncodersReset () {
+
+        if (hasLeftEncoderReset() && hasRightEncoderReset()) {
+        return true;
+        }
+        return false;
+
+    }
+
+    boolean hasLeftEncoderReset() {
+        if (leftMotor.getCurrentPosition() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean hasRightEncoderReset() {
+        if(rightMotor.getCurrentPosition()== 0) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean hasGyroReachedValue(int value, int margin) {
+        int low = value - margin;
+        int high = value + margin;
+
+        if (value == 0) {
+            low = 0;
+        }
+
+        if (gyroSensor.getHeading() >= low && gyroSensor.getHeading() <= high ) {
+            return true;
+        }
+        return false;
+    }
 
     public static void sleep(long sleepTime) {
         long wakeupTime = System.currentTimeMillis() + sleepTime;
