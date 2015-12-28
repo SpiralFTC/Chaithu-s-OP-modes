@@ -1,17 +1,16 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+//import com.qualcomm.robotcore.hardware.DcMotor;
+
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.util.Range;
+//import com.qualcomm.robotcore.hardware.GyroSensor;
+//import com.qualcomm.robotcore.util.Range;
 
 
 public class Gyro extends Gyro_Programs {
 
 
-
-
-    public  void gyroTurn(int d,double power) {
+    public void gyroTurn(int d, double power) {
         leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         boolean value = false;
@@ -25,7 +24,7 @@ public class Gyro extends Gyro_Programs {
             c = 2;
         }
 
-        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c ) {
+        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c) {
             value = true;
         }
 
@@ -125,15 +124,15 @@ public class Gyro extends Gyro_Programs {
     /**
      * Move the robot for the given distance
      *
-     * @param distence
+     * @param distance
      * @param diametre
      */
-    public void moveCentimetresTyre(double distence, double diametre, double power) {
+    public void moveCentimetresTyre(double distance, double diametre, double power) {
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         double circumference = diametre * Math.PI;
 
-        double revolutions = distence / circumference;
+        double revolutions = distance / circumference;
         rightMotor.setTargetPosition((int) (revolutions * 1072));
         leftMotor.setTargetPosition((int) (revolutions * 1072));
         rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
@@ -146,24 +145,21 @@ public class Gyro extends Gyro_Programs {
         leftMotor.setPower(power);
     }
 
-        public void moveCentimetres(double distence, double power) {
-            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-            rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-            double revolutionmove = distence / oneRevolutiontreadLength;
-            rightMotor.setTargetPosition((int) (revolutionmove * 1072));
-            leftMotor.setTargetPosition((int) (revolutionmove * 1072));
-            rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-            leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+    public void moveCentimetres(double distence, double power) {
+        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        double revolutionmove = distence / oneRevolutiontreadLength;
+        rightMotor.setTargetPosition((int) (revolutionmove * 1072));
+        leftMotor.setTargetPosition((int) (revolutionmove * 1072));
+        rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-            //boolean checkmove = false;
-
-
-            rightMotor.setPower(power);
-            leftMotor.setPower(power);
-        }
+        //boolean checkmove = false;
 
 
-
+        rightMotor.setPower(power);
+        leftMotor.setPower(power);
+    }
 
 
     public static void sleep(long sleepTime) {
