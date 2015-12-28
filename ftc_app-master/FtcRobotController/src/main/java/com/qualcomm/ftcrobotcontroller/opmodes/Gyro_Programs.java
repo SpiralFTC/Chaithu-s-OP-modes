@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
 
-public class Gyro_Programs extends OpMode {
+public abstract class Gyro_Programs extends OpMode {
     public static DcMotor leftMotor;
     public static DcMotor rightMotor;
     public static GyroSensor gyroSensor;
@@ -26,19 +26,10 @@ public class Gyro_Programs extends OpMode {
 
     }
 
-    @Override
-    public void start() {
-        // super.start();
-    }
-
-    @Override
-    public void loop() {
-
-    }
 
     @Override
     public void stop() {
-        //super.stop();
+        super.stop();
     }
 
     public void gyroStraight(int b, double c) {
@@ -112,3 +103,6 @@ public class Gyro_Programs extends OpMode {
     }
 
 }
+
+
+

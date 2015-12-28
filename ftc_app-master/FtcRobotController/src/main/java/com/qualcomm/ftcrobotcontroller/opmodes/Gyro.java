@@ -6,18 +6,18 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.Range;
 
 
-public class Gyro extends Gyro_Programs {
+public abstract class Gyro extends Gyro_Programs {
+
+    double diameter = 9.75 ;
 
 
-
-
-    public  void gyroTurn(int d,double power) {
+    public  void gyroTurn(int d,double power,int range) {
         leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         boolean value = false;
 
-        int b = d - 5;
-        int c = d + 5;
+        int b = d - range;
+        int c = d + range;
 
         if (d == 0) {
 
@@ -125,15 +125,16 @@ public class Gyro extends Gyro_Programs {
     /**
      * Move the robot for the given distance
      *
-     * @param distence
-     * @param diametre
+     * @param distance
+     *
      */
-    public void moveCentimetresTyre(double distence, double diametre, double power) {
+    public void moveCentimetresTyre(double distance, double power) {
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        double diametre = diameter;
         double circumference = diametre * Math.PI;
 
-        double revolutions = distence / circumference;
+        double revolutions = distance / circumference;
         rightMotor.setTargetPosition((int) (revolutions * 1072));
         leftMotor.setTargetPosition((int) (revolutions * 1072));
         rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
@@ -144,6 +145,9 @@ public class Gyro extends Gyro_Programs {
 
         rightMotor.setPower(power);
         leftMotor.setPower(power);
+//
+//        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+//        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
         public void moveCentimetres(double distence, double power) {
@@ -160,6 +164,8 @@ public class Gyro extends Gyro_Programs {
 
             rightMotor.setPower(power);
             leftMotor.setPower(power);
+//            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+//            rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         }
 
 
