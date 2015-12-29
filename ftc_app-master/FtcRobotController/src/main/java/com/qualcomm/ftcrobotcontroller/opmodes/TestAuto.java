@@ -11,10 +11,12 @@ public class TestAuto extends Gyro {
 
     Servo servoOne;
     Servo servoTwo;
+    int troll = (int) Math.random() * 55;
 
     private int state = 0;
-
-    static int MARGIN = 3;
+    private int x = 0;
+    static int MARGIN = 2;
+    private int turnValue = 0;
 
     @Override
     public void init() {
@@ -42,16 +44,14 @@ public class TestAuto extends Gyro {
 
     @Override
     public void loop() {
-
+        telemetry.addData("Gyro Value", gyroSensor.getHeading());
         switch (state) {
             case 0:
-                leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-                rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+                resetEncoders();
                 state++;
                 break;
             case 1:
-                leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-                rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+                useEncoders();
 
                 double count = calculateEncoderCountFromDistance(100);
 
@@ -60,7 +60,7 @@ public class TestAuto extends Gyro {
 //                rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 //                leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-                setDrivePower(0.3, 0.3);
+                setDrivePower(0.1, 0.1);
 
                 //
                 // Have the motor shafts turned the required amount?
@@ -68,15 +68,14 @@ public class TestAuto extends Gyro {
                 // If they haven't, then the op-mode remains in this state (i.e this
                 // block will be executed the next time this method is called).
                 //
-                if (haveEncodersReached(count, count))
-                {
-                    leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-                    rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+                if (haveEncodersReached(count, count)) {
 
                     //
                     // Stop the motors.
                     //
                     setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+
 
                     //
                     // Transition to the next state when this method is called
@@ -90,20 +89,28 @@ public class TestAuto extends Gyro {
                 if (haveDriverEncodersReset()) {
                     state++;
                 }
+
+
                 break;
             case 3:
                 // turn
-                leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-                rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-                setDrivePower(-0.075f, +0.075f);
-                if (hasGyroReachedValue(90, MARGIN)) {
-                    setDrivePower(0.0,0.0);
-                    state++;
+                setDrivePowerNoEnc(-0.065f, +0.065f);
+                if (hasGyroReachedValue(120 + turnValue, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state = 0;
+                    x++;
+                    turnValue += 120;
+
+                }
+                if (x == 3) {
+                    state = 5;
+                    break;
+
                 }
                 break;
             default:
                 break;
         }
-
+        telemetry.addData("Random Value", troll);
     }
 }
