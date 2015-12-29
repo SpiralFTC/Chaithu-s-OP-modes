@@ -100,6 +100,7 @@ public class TestAuto extends Gyro {
                     state = 0;
                     x++;
                     turnValue += 120;
+                    //thing to commit
 
                 }
                 if (x == 3) {
