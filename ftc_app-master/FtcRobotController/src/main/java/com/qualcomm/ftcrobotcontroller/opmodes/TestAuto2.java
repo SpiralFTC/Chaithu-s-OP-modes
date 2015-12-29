@@ -5,9 +5,11 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by heel7 on 12/28/2015.
+ * Created by heel7 on 12/29/2015.
+ *
+ * Autonomous program - use distances to get to beacon
  */
-public class TestAuto extends Gyro {
+public class TestAuto2  extends Gyro{
 
     Servo servoOne;
     Servo servoTwo;
@@ -50,17 +52,12 @@ public class TestAuto extends Gyro {
                 resetEncoders();
                 state++;
                 break;
-            case 1:
+            case 1: // move 2 squares
                 useEncoders();
 
-                double count = calculateEncoderCountFromDistance(100);
+                double count = calculateEncoderCountFromDistance(109);
 
-//                rightMotor.setTargetPosition((int) (count));
-//                leftMotor.setTargetPosition((int) (count));
-//                rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-//                leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-
-                setDrivePower(0.1, 0.1);
+                setDrivePower(0.3, 0.3);
 
                 //
                 // Have the motor shafts turned the required amount?
@@ -75,12 +72,6 @@ public class TestAuto extends Gyro {
                     //
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
-
-
-                    //
-                    // Transition to the next state when this method is called
-                    // again.
-                    //
                     state++;
                 }
                 break;
@@ -90,25 +81,49 @@ public class TestAuto extends Gyro {
                     state++;
                 }
 
-
                 break;
             case 3:
-                // turn
+                // turn 45 degrees
                 setDrivePowerNoEnc(-0.08f, +0.08f);
-                if (hasGyroReachedValue(120 + turnValue, MARGIN)) {
+                if (hasGyroReachedValue(45, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
-                    state = 0;
-                    x++;
-                    turnValue += 120;
-                    //thing to commit
-
-                }
-                if (x == 3) {
-                    state = 5;
-                    break;
-
+                    state++;
                 }
                 break;
+            case 4: // move 1 1/2 squares
+                useEncoders();
+                count = calculateEncoderCountFromDistance(116);
+                setDrivePower(0.3, 0.3);
+                if (haveEncodersReached(count, count)) {
+                    setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+                    state++;
+                }
+                break;
+            case 5:
+                if (haveDriverEncodersReset()) {
+                    state++;
+                }
+                break;
+            case 6:
+                // turn another 45 degrees
+                setDrivePowerNoEnc(-0.08f, +0.08f);
+                if (hasGyroReachedValue(90, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+                break;
+             // move till wall
+            case 7:
+                count = calculateEncoderCountFromDistance(20);
+                setDrivePower(0.3,0.3);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    resetEncoders();
+                    state++;
+                }
+                break;
+
             default:
                 break;
         }

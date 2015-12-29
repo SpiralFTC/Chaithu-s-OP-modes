@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by Choo Choo on 12/5/2015.
  */
-public class OpModeMethods extends OpMode{
+public class  OpModeMethods extends OpMode{
     DcMotor right;
     DcMotor left;
     Servo RightServo;
