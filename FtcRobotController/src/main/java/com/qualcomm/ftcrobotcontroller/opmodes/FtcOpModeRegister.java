@@ -92,6 +92,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     // manager.register("Light Sensor Test", LightTest.class);
     manager.register("Auto ",Autonomous.class);
     manager.register("All Test",AllTest.class);
+    manager.register("THATS WHAT SHE SAID", ArmTest.class);
 
   }
 }
