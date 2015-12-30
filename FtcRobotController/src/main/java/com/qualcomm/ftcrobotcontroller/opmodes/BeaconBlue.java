@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  *
  * Autonomous program - use distances to get to beacon
  */
-public class TestAuto2  extends Gyro{
+public class BeaconBlue extends Gyro{
 
     Servo servoOne;
     Servo servoTwo;
@@ -128,6 +128,20 @@ public class TestAuto2  extends Gyro{
                     state++;
                 }
             case 9:
+                servoOne.setPosition(1);
+                if(servoOne.getPosition()==1){
+                    state++;
+
+                }
+                break;
+            case 10:
+                servoOne.setPosition(0);
+                if(servoOne.getPosition()==0){
+                    state++;
+
+                }
+                break;
+            case 11:
                 count = calculateEncoderCountFromDistance(-61);
                 setDrivePower(-0.3, -0.3);
                 if(haveEncodersReached(count, count)) {
@@ -135,11 +149,11 @@ public class TestAuto2  extends Gyro{
                     resetEncoders();
                     state++;
                 }
-            case 10:
+            case 12:
                 if(haveDriverEncodersReset()){
                     state++;
                 }
-            case 11:
+            case 13:
                 setDrivePowerNoEnc(-0.08f, +0.08f);
                 if (hasGyroReachedValue(120, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
