@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  *
  * Autonomous program - use distances to get to beacon
  */
-public class TestAuto2  extends Gyro{
+public class BeaconRed extends Gyro{
 
     Servo servoOne;
     Servo servoTwo;
@@ -84,7 +84,7 @@ public class TestAuto2  extends Gyro{
                 break;
             case 3:
                 // turn 45 degrees
-                setDrivePowerNoEnc(-0.08f, +0.08f);
+                setDrivePowerNoEnc(+0.08f, -0.08f);
                 if (hasGyroReachedValue(45, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
@@ -107,7 +107,7 @@ public class TestAuto2  extends Gyro{
                 break;
             case 6:
                 // turn another 45 degrees
-                setDrivePowerNoEnc(-0.08f, +0.08f);
+                setDrivePowerNoEnc(+0.08f, -0.08f);
                 if (hasGyroReachedValue(90, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
@@ -123,7 +123,20 @@ public class TestAuto2  extends Gyro{
                     state++;
                 }
                 break;
+            case 8:
+                servoOne.setPosition(1);
+                if(servoOne.getPosition()==1){
+                    state++;
 
+                }
+                break;
+            case 9:
+                servoOne.setPosition(0);
+                if(servoOne.getPosition()==0){
+                    state++;
+
+                }
+                break;
             default:
                 break;
         }
