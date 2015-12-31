@@ -47,6 +47,7 @@ public class BeaconBlue extends Gyro{
     @Override
     public void loop() {
         telemetry.addData("Gyro Value", gyroSensor.getHeading());
+        telemetry.addData("Case",state);
         switch (state) {
             case 0:
                 resetEncoders();
@@ -116,21 +117,25 @@ public class BeaconBlue extends Gyro{
              // move till wall
             case 7:
                 count = calculateEncoderCountFromDistance(20);
-                setDrivePower(0.3,0.3);
+                setDrivePower(0.1,0.1);
                 if(haveEncodersReached(count,count)){
                     setDrivePower(0.0f,0.0f);
                     resetEncoders();
                     state++;
                 }
                 break;
-            case 8:
+            case 8: if(haveDriverEncodersReset()){
+                state++;
+            }
+                break;
+            case 9:
                 servoOne.setPosition(1);
                 if(servoOne.getPosition()==1){
                     state++;
 
                 }
                 break;
-            case 9:
+            case 10:
                 servoOne.setPosition(0);
                 if(servoOne.getPosition()==0){
                     state++;

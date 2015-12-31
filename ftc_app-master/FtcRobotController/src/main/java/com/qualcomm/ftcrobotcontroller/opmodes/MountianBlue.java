@@ -51,7 +51,7 @@ public class MountianBlue extends Gyro {
                 break;
             case 1:
                 useEncoders();
-                double count = calculateEncoderCountFromDistance(109);
+                double count = calculateEncoderCountFromDistance(100);
                 setDrivePower(0.3,0.3);
                 if(haveEncodersReached(count,count)){
                     setDrivePower(0.0f,0.0f);
