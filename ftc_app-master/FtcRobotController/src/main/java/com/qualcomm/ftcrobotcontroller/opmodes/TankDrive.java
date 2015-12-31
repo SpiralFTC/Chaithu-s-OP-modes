@@ -14,8 +14,7 @@ public class TankDrive extends OpModeMethods {
 
     @Override
     public void loop() {
-        RightServo.setPosition(ServoPosition);
-        LeftServo.setPosition(ServoPosition);
+
         double rightPower = -gamepad1.left_stick_y;
         double leftPower = -gamepad1.right_stick_y;
         rightPower = Range.clip(rightPower, -1, 1);
@@ -46,7 +45,7 @@ public class TankDrive extends OpModeMethods {
         }
 
 
-        armPosition = Range.clip(armPosition, 0.01, 0.79);
+        armPosition = Range.clip(armPosition, 0.01, 0.99);
         ServoPosition = Range.clip(ServoPosition, 0.01, 0.99);
 
         RightServo.setPosition(ServoPosition);

@@ -13,12 +13,13 @@ public class OpModeMethods extends OpMode {
     DcMotor left;
     Servo RightServo;
     Servo LeftServo;
-    double ServoPosition;
-    double armPosition;
+    double ServoPosition = 0;
+    double armPosition = 0;
     double servoDelta = 0.1;
     double armDelta = 0.03;
     GyroSensor gyro;
-    DcMotor sweeperMotor;
+    // DcMotor sweeperMotor;
+
 
     @Override
 
@@ -33,7 +34,7 @@ public class OpModeMethods extends OpMode {
         LeftServo = hardwareMap.servo.get("leftS");
         RightServo = hardwareMap.servo.get("arm");
 
-        gyro = hardwareMap.gyroSensor.get("gyro");
+        //   gyro = hardwareMap.gyroSensor.get("gyro");
 
         RightServo.setPosition(ServoPosition);
         LeftServo.setPosition(ServoPosition);
@@ -53,6 +54,7 @@ public class OpModeMethods extends OpMode {
     public void loop() {
 
     }
+
 
     @Override
     public void stop() {

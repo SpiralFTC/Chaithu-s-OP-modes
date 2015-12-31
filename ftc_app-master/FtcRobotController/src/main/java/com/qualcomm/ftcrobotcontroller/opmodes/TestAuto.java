@@ -68,8 +68,7 @@ public class TestAuto extends Gyro {
                 // If they haven't, then the op-mode remains in this state (i.e this
                 // block will be executed the next time this method is called).
                 //
-                if (haveEncodersReached(count, count))
-                {
+                if (haveEncodersReached(count, count)) {
                     leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
                     rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
@@ -97,7 +96,7 @@ public class TestAuto extends Gyro {
                 rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
                 setDrivePower(-0.075f, +0.075f);
                 if (hasGyroReachedValue(90, MARGIN)) {
-                    setDrivePower(0.0,0.0);
+                    setDrivePower(0.0, 0.0);
                     state++;
                 }
                 break;
