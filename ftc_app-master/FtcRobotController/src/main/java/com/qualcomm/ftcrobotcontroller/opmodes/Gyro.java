@@ -221,6 +221,20 @@ public abstract class Gyro extends Gyro_Programs {
         rightMotor.setPower(right);
         leftMotor.setPower(left);
     }
+    public void setDrivePowerNoEnc(double right, double left) {
+        leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        rightMotor.setPower(right);
+        leftMotor.setPower(left);
+    }
+    public void useEncoders(){
+        leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+    }
+    public void resetEncoders(){
+        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+    }
 
     /**
      * Indicate whether the encoders have been completely reset.
