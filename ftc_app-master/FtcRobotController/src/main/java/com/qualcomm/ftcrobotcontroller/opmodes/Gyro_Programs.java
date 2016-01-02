@@ -13,7 +13,7 @@ public abstract class Gyro_Programs extends OpMode {
     public static int caseNumber = 1;
     // public static final double treadLength = 90.01125;
     public static final double oneRevolutiontreadLength = 14.8370192308;
-
+public static double inchToCentimeterConversion = 2.54;
 
     DcMotor right;
     DcMotor left;

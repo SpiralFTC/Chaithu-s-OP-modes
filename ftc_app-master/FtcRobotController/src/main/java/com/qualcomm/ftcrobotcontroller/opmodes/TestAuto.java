@@ -11,7 +11,7 @@ public class TestAuto extends Gyro {
 
     Servo servoOne;
     Servo servoTwo;
-    int troll = (int) Math.random() * 55;
+
 
     private int state = 0;
     private int x = 0;
@@ -112,6 +112,6 @@ public class TestAuto extends Gyro {
             default:
                 break;
         }
-        telemetry.addData("Random Value", troll);
+
     }
 }

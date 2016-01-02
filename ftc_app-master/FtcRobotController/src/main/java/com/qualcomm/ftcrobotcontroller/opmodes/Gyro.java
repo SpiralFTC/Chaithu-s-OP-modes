@@ -1,35 +1,32 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.util.Range;
 
 
 public abstract class Gyro extends Gyro_Programs {
 
-    double diameter = 9.75 ;
+    double diameter = 9.75;
 
     /**
      * Indicate whether the drive motors' encoders have reached a value.
      */
-    public boolean haveEncodersReached( double leftCount, double rightCount) {
+    public boolean haveEncodersReached(double leftCount, double rightCount) {
 
         if (hasLeftEncoderReached(leftCount) &&
                 hasRightEncoderReached(rightCount)) {
-           return true;
+            return true;
         }
-       return false;
+        return false;
     }
 
     /**
      * Indicate whether the left drive motor's encoder has reached a value.
      */
-    boolean hasLeftEncoderReached (double count) {
+    boolean hasLeftEncoderReached(double count) {
 
-            if (Math.abs (leftMotor.getCurrentPosition ()) > count) {
-                return true;
-            }
+        if (Math.abs(leftMotor.getCurrentPosition()) > count) {
+            return true;
+        }
         return false;
     }
 
@@ -37,16 +34,16 @@ public abstract class Gyro extends Gyro_Programs {
     /**
      * Indicate whether the right drive motor's encoder has reached a value.
      */
-    boolean hasRightEncoderReached (double count) {
+    boolean hasRightEncoderReached(double count) {
 
-        if (Math.abs (rightMotor.getCurrentPosition ()) > count) {
+        if (Math.abs(rightMotor.getCurrentPosition()) > count) {
             return true;
         }
         return false;
     }
 
 
-    public  void gyroTurn(int d,double power,int range) {
+    public void gyroTurn(int d, double power, int range) {
         leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         boolean value = false;
@@ -60,7 +57,7 @@ public abstract class Gyro extends Gyro_Programs {
             c = 2;
         }
 
-        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c ) {
+        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c) {
             value = true;
         }
 
@@ -161,7 +158,6 @@ public abstract class Gyro extends Gyro_Programs {
      * Move the robot for the given distance
      *
      * @param distance
-     *
      */
     public void moveCentimetresTyre(double distance, double power) {
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -185,27 +181,28 @@ public abstract class Gyro extends Gyro_Programs {
 //        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
-        public void moveCentimetres(double distence, double power) {
-            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-            rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-            double revolutionmove = distence / oneRevolutiontreadLength;
-            rightMotor.setTargetPosition((int) (revolutionmove * 1072));
-            leftMotor.setTargetPosition((int) (revolutionmove * 1072));
-            rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-            leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+    public void moveCentimetres(double distence, double power) {
+        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        double revolutionmove = distence / oneRevolutiontreadLength;
+        rightMotor.setTargetPosition((int) (revolutionmove * 1072));
+        leftMotor.setTargetPosition((int) (revolutionmove * 1072));
+        rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-            //boolean checkmove = false;
+        //boolean checkmove = false;
 
 
-            rightMotor.setPower(power);
-            leftMotor.setPower(power);
+        rightMotor.setPower(power);
+        leftMotor.setPower(power);
 //            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 //            rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        }
+    }
 
 
     /**
      * Convert distance in centimeters to an encoder count
+     *
      * @param distance
      * @return
      */
@@ -213,7 +210,7 @@ public abstract class Gyro extends Gyro_Programs {
 
         double circumference = diameter * Math.PI;
 
-        double revolutions = distance / circumference;
+        double revolutions = (distance / circumference) - 5;
         return revolutions * 1072;
     }
 
@@ -221,17 +218,20 @@ public abstract class Gyro extends Gyro_Programs {
         rightMotor.setPower(right);
         leftMotor.setPower(left);
     }
+
     public void setDrivePowerNoEnc(double right, double left) {
         leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         rightMotor.setPower(right);
         leftMotor.setPower(left);
     }
-    public void useEncoders(){
+
+    public void useEncoders() {
         leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
-    public void resetEncoders(){
+
+    public void resetEncoders() {
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
@@ -239,10 +239,10 @@ public abstract class Gyro extends Gyro_Programs {
     /**
      * Indicate whether the encoders have been completely reset.
      */
-    public boolean haveDriverEncodersReset () {
+    public boolean haveDriverEncodersReset() {
 
         if (hasLeftEncoderReset() && hasRightEncoderReset()) {
-        return true;
+            return true;
         }
         return false;
 
@@ -256,7 +256,7 @@ public abstract class Gyro extends Gyro_Programs {
     }
 
     boolean hasRightEncoderReset() {
-        if(rightMotor.getCurrentPosition()== 0) {
+        if (rightMotor.getCurrentPosition() == 0) {
             return true;
         }
         return false;
@@ -270,7 +270,7 @@ public abstract class Gyro extends Gyro_Programs {
             low = 0;
         }
 
-        if (gyroSensor.getHeading() >= low && gyroSensor.getHeading() <= high ) {
+        if (gyroSensor.getHeading() >= low && gyroSensor.getHeading() <= high) {
             return true;
         }
         return false;
