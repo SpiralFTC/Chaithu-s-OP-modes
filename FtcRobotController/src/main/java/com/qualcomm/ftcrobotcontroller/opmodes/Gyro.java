@@ -200,29 +200,42 @@ public abstract class Gyro extends Gyro_Programs {
      * @param distance
      * @return
      */
+    //In this class, we declare most of the methods that we use for autonomous.
     public double calculateEncoderCountFromDistance(int distance) {
-
+        //In this method, we calculate how many revolutions the encoders should check for.
         double circumference = diameter * Math.PI;
-
+        //This calculates the circumference.
         double revolutions = distance / circumference;
+        //We need to take distance and convert it into centimeters. This line specifies that.
+        //By taking the circumference, one revolution, and dividing the number of centimeters
+        //we want to move for, we convert it into revolutions.
         return revolutions * 1072;
+        //1072 is the pulse per rotation constant that we calculate for. We have to return it like this.
     }
 
     public void setDrivePower(double right, double left) {
+        //In this method we set the power for each motor. Pretty self explanatory
         rightMotor.setPower(right);
         leftMotor.setPower(left);
     }
     public void setDrivePowerNoEnc(double right, double left) {
+        //In our program, we use encoders, so we have to specify when not to use encoders
+        //First we tell our robot to set the mode of the motors to run without encoders.
         leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        //Then, we set the power.
         rightMotor.setPower(right);
         leftMotor.setPower(left);
     }
     public void useEncoders(){
+        //If we want to use encoders, we tell our robot to change the mode to use encoders.
+        //In succession, we use the setDrivePower method.
         leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
     public void resetEncoders(){
+        //After each time we use encoders, we reset them. Since we use it repeatedly,
+        //We made it a method.
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
@@ -231,22 +244,28 @@ public abstract class Gyro extends Gyro_Programs {
      * Indicate whether the encoders have been completely reset.
      */
     public boolean haveDriverEncodersReset () {
-
+        //If the encoders have reset, we return true.
         if (hasLeftEncoderReset() && hasRightEncoderReset()) {
             return true;
         }
+        //If we haven't reset, we return false.
         return false;
 
     }
 
     boolean hasLeftEncoderReset() {
+        //If the left encoder has reset, we return true.
+        //We check to see if it has reset by seeing if the position is 0.
+        //If the position is 0, it has reset.
         if (leftMotor.getCurrentPosition() == 0) {
             return true;
         }
+        //If it hasn't reset, we return false.
         return false;
     }
 
     boolean hasRightEncoderReset() {
+        //Using the same logic above, we check to see if the right encoder has reset.
         if(rightMotor.getCurrentPosition()== 0) {
             return true;
         }
@@ -254,17 +273,26 @@ public abstract class Gyro extends Gyro_Programs {
     }
 
     boolean hasGyroReachedValue(int value, int margin) {
+        //In this method, we check to see if the robot has turned to the correct value.
+        //One input is value, the amount that we want to turn to.
+        //The other input is a margin of error. We need that margin so that the robot doesn't
+        //Keep on trying to turn to the exact correct value.
         int low = value - margin;
         int high = value + margin;
+        //These variables are our low and high margin.
 
         if (value == 0) {
             low = 0;
         }
+        //If the value that we want to turn to is 0 degrees, the lower margin is 0 degrees.
 
         if (gyroSensor.getHeading() >= low && gyroSensor.getHeading() <= high ) {
             return true;
+            //If the robot has turned to a value between the lower and higher margin,
+            //we return true
         }
         return false;
+        //if it hasn't turned to a value between the 2 margins, we return false.
     }
 
     public static void sleep(long sleepTime) {
